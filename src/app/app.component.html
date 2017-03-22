@@ -1,0 +1,79 @@
+
+ <!-- Enable bootstrap 4 theme -->
+  <script>window.__theme = 'bs4';</script>
+  
+<!--Navbar-->
+<nav class="navbar navbar-inverse bg-primary fixed-top navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Invoice Issuer</a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+<!-- Nav tabs -->
+<ul class="navbar-nav" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#invoices" role="tab">Invoices</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#clients" role="tab">Clients</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#books" role="tab">Books</a>
+  </li>
+
+
+<!--Login & Logout-->
+ <div class="navbar-nav  navbar-right">
+   <span class="navbar-text">
+      {{ (af.auth | async)?.google.displayName }} 
+    </span>
+        <a class="nav-item nav-link" href="#" *ngIf="!(af.auth | async)" (click)="login()">Login</a>
+  <a class="nav-item nav-link" href="#" *ngIf="(af.auth | async)" (click)="logout()">Logout</a>
+    </div>
+</ul>
+  </div>
+</nav>
+
+
+<!-- Tab panes -->
+<div class="tab-content container-fluid" style="top:100px">
+  <div class="tab-pane " id="books" role="tabpanel">
+    <!--Books-->
+
+      <div class="form-group">
+        <label for="name">Book</label>
+        <input type="text" class="form-control" value="" [(ngModel)]="filterBookKeyWord">
+      </div>     
+
+
+    <table class="table table-hover">
+  <thead class="thead-light text-white">
+    <tr class=" bg-primary">
+      <th>#</th>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>   
+    <tr *ngFor="let book of books | async | bookFilter:filterBookKeyWord; let i = index;" >
+      <th scope="row">{{i+1}}</th>
+      <td><input type="text" #updateName [value]="book.name" /></td>
+      <td><input type="text" #updatePrice [value]="book.price" /></td>
+      <td>    <button class="btn btn-primary" (click)="updateItem(book.$key, updateName.value,updatePrice.value)">Update</button>
+      <button class="btn btn-danger" (click)="deleteItem(book.$key)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+   Name<input type="text" #newName  />
+   Price<input type="text" #newPrice />
+  <button (click)="addItem(newName.value,newPrice.value)">Add</button>
+  <!--<button (click)="deleteEverything()">Delete All</button>-->
+  </div>
+  <div class="tab-pane active" id="invoices" role="tabpanel">...</div>
+  <div class="tab-pane" id="clients" role="tabpanel">...</div>
+
+</div>
+
