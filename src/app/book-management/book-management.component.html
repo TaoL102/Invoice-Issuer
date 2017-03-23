@@ -1,0 +1,29 @@
+ <div class="form-group">
+      <label>Search:</label>
+      <input type="text" class="form-control" value="" [(ngModel)]="filterBookKeyWord">
+    </div>
+    <table class="table table-hover">
+      <thead class="thead-light text-white">
+        <tr class=" bg-primary">
+          <th>#</th>
+          <th>Book Title</th>
+          <th>Price (GST Excl.)</th>
+          <th>Admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"></th>
+          <td><input type="text" class="form-control" #newBookName /></td>
+          <td><input type="text" class="form-control" #newBookPrice /></td>
+          <td><button class="btn btn-primary" (click)="addBook(newBookName.value,newBookPrice.value)">Add</button></td>
+        </tr>
+        <tr *ngFor="let book of books | async | bookFilter:filterBookKeyWord ; let i = index;">
+          <th scope="row">{{i+1}}</th>
+          <td><input type="text" class="form-control" #updateBookName [value]="book.name" /></td>
+          <td><input type="text" class="form-control" #updateBookPrice [value]="book.price" /></td>
+          <td> <button class="btn btn-primary" (click)="updateBook(book.$key, updateBookName.value,updateBookPrice.value)">Update</button>
+            <button class="btn btn-danger" (click)="deleteBook(book.$key)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>

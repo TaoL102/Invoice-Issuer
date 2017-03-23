@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@media print{
+
+ @page 
+    {
+        size: auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }
+
+    html{
+        margin-left:20mm;
+        margin-right:20mm;
+    }
+
+}

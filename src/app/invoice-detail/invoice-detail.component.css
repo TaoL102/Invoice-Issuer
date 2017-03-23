@@ -1,0 +1,12 @@
+
+@media print{
+
+    button{
+        display: none;
+    }
+    input{
+        border: 0;
+    }
+  
+
+}

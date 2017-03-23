@@ -1,0 +1,40 @@
+<h1>Invoice</h1>
+<h6>Invoice No. {{invoice?.invoiceNumber}}</h6>
+<h6>GST No.</h6>
+<h6>Date: {{invoice.date | date: 'dd MMM yyyy'}}</h6>
+<h4>To:{{invoice?.client?.name}}</h4>
+<h4>{{invoice?.client?.address}}</h4>
+<h4>{{invoice?.client?.city}} {{invoice?.client?.postcode}}</h4>
+<h4>{{invoice?.client?.country}}</h4>
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th>Book</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Discount</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of booksInInvoice ">
+      <td>{{book.name}}</td>
+      <td>{{book.price}}</td>
+      <td><input type="number" class="form-control" #updateBookQuantity [value]="book.quantity" (change)="quantityChanged(book,updateBookQuantity.value)"
+        /></td>
+      <td><input type="text" class="form-control" #updateBookDiscount [value]="book.discount" (change)="discountChanged(book,updateBookDiscount.value)"
+        /></td>
+      <td>{{book.price*book.quantity-book.discount}}</td>
+
+      <td>
+        <!--<button class="btn btn-primary" (click)="updateBookInInvoice(
+            book,
+             updateBookQuantity.value,
+             updateBookDiscount.value
+             )">Update</button>-->
+        <button class="btn btn-danger" (click)="deleteBookInInvoice(book)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

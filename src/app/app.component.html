@@ -15,9 +15,15 @@
 
     <!-- Nav tabs -->
     <ul class="navbar-nav" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#invoices" role="tab">Invoices</a>
-      </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        Invoices
+      </a>
+      <div class="dropdown-menu">
+                <a class="dropdown-item" id="issue-invoice-tab" href="#issue-invoice" role="tab" data-toggle="tab" aria-controls="issue-invoice">Issue Invoice</a>
+        <a class="dropdown-item" id="invoice-management-tab" href="#invoice-management" role="tab" data-toggle="tab" aria-controls="invoice-management" aria-expanded="true">Invoices</a>
+      </div>
+    </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#clients" role="tab">Clients</a>
       </li>
@@ -44,130 +50,23 @@
 
   <!--Books-->
   <div class="tab-pane " id="books" role="tabpanel">
-    <div class="form-group">
-      <label>Search:</label>
-      <input type="text" class="form-control" value="" [(ngModel)]="filterBookKeyWord">
-    </div>
-    <table class="table table-hover">
-      <thead class="thead-light text-white">
-        <tr class=" bg-primary">
-          <th>#</th>
-          <th>Book Title</th>
-          <th>Price (GST Excl.)</th>
-          <th>Admin</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td><input type="text" class="form-control" #newBookName /></td>
-          <td><input type="text" class="form-control" #newBookPrice /></td>
-          <td><button class="btn btn-primary" (click)="addBook(newBookName.value,newBookPrice.value)">Add</button></td>
-        </tr>
-        <tr *ngFor="let book of books | async | bookFilter:filterBookKeyWord ; let i = index;">
-          <th scope="row">{{i+1}}</th>
-          <td><input type="text" class="form-control" #updateBookName [value]="book.name" /></td>
-          <td><input type="text" class="form-control" #updateBookPrice [value]="book.price" /></td>
-          <td> <button class="btn btn-primary" (click)="updateBook(book.$key, updateBookName.value,updateBookPrice.value)">Update</button>
-            <button class="btn btn-danger" (click)="deleteBook(book.$key)">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
-
+   <book-management [books]="books"></book-management>
   </div>
 
 
   <!--Clients-->
   <div class="tab-pane" id="clients" role="tabpanel">
-    <div class="form-group">
-      <label>Search:</label>
-      <input type="text" class="form-control" value="" [(ngModel)]="filterClientKeyWord">
-    </div>
-    <table class="table table-hover">
-      <thead class="thead-light text-white">
-        <tr class=" bg-primary">
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>Post Code</th>
-          <th>Country</th>
-          <th>Admin</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td><input type="text" class="form-control" #newClientName /></td>
-          <td><input type="text" class="form-control" #newClientEmail /></td>
-          <td><input type="text" class="form-control" #newClientAddress /></td>
-          <td><input type="text" class="form-control" #newClientCity /></td>
-          <td><input type="text" class="form-control" #newClientPostCode /></td>
-          <td><input type="text" class="form-control" #newClientCountry /></td>
-          <td><button class="btn btn-primary" (click)="addClient(
-            newClientName.value,
-            newClientEmail.value,
-            newClientAddress.value,
-            newClientCity.value,
-            newClientPostCode.value,
-            newClientCountry.value
-          )">Add</button></td>
-        </tr>
-        <tr *ngFor="let client of clients | async | clientFilter:filterClientKeyWord ; let i = index;">
-          <th scope="row">{{i+1}}</th>
-          <td><input type="text" class="form-control" #updateClientName [value]="client.name" /></td>
-          <td><input type="text" class="form-control" #updateClientEmail [value]="client.email" /></td>
-          <td><input type="text" class="form-control" #updateClientAddress [value]="client.address" /></td>
-          <td><input type="text" class="form-control" #updateClientCity [value]="client.city" /></td>
-          <td><input type="text" class="form-control" #updateClientPostCode [value]="client.postcode" /></td>
-          <td><input type="text" class="form-control" #updateClientCountry [value]="client.country" /></td>
-          <td> <button class="btn btn-primary" (click)="updateClient(
-            client.$key,
-             updateClientName.value,
-             updateClientEmail.value,
-             updateClientAddress.value,
-             updateClientCity.value,
-             updateClientPostCode.value,
-             updateClientCountry.value
-             )">Update</button>
-            <button class="btn btn-danger" (click)="deleteClient(client.$key)">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <client-management [clients]="clients"></client-management>
   </div>
 
-  <!--Invoices-->
-  <div class="tab-pane active" id="invoices" role="tabpanel">
+  <!--Invoice Management-->
+  <div class="tab-pane " id="invoice-management" role="tabpanel">
+<invoice-management  [invoices]="invoices" ></invoice-management>
+  </div>
 
-    <label>Choose Client:</label>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownClientsButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-    Choose Client:
-  </button>
-      <div class="dropdown-menu  form-control" aria-labelledby="dropdownClientsButton">
-        <input type="text" class="form-control" value="" [(ngModel)]="filterClientKeyWord">
-        <a *ngFor="let client of clients | async | clientFilter:filterClientKeyWord " class="dropdown-item" href="#">{{client.name}}</a>
-      </div>
-    </div>
-
-    <label>Choose Books:</label>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownBooksButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-    Choose Books:
-  </button>
-      <div class="dropdown-menu  form-control" aria-labelledby="dropdownBooksButton">
-        <input type="text" class="form-control" value="" [(ngModel)]="filterBookKeyWord">
-        <a *ngFor="let book of books | async | bookFilter:filterBookKeyWord " class="dropdown-item" href="#">{{book.name}}</a>
-      </div>
-    </div>
-
-     <label>Add Books:</label>
-     <p>Book Name</p>
-     <input type="number">
-  <button class="btn btn-danger" >Add book</button>
+    <!--Issue Invoice-->
+  <div class="tab-pane " id="issue-invoice" role="tabpanel">
+<issue-invoice  [clients]="clients" [books]="books"></issue-invoice>
   </div>
 
 </div>
