@@ -9,13 +9,6 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 import { BookFilter } from '../services/BookFilter';
 import { ClientFilter } from '../services/ClientFilter';
-import { InvoiceFilter } from '../services/InvoiceFilter';
-import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
-import { BookManagementComponent } from './book-management/book-management.component';
-import { ClientManagementComponent } from './client-management/client-management.component';
-import { IssueInvoiceComponent } from './issue-invoice/issue-invoice.component';
-import { InvoiceManagementComponent } from './invoice-management/invoice-management.component';
-import { PaymentInfoManagementComponent } from './payment-info-management/payment-info-management.component';
 
 
 export const firebaseConfig = {
@@ -28,7 +21,7 @@ export const firebaseConfig = {
 
 const myFirebaseAuthConfig = {
   provider: AuthProviders.Google,
-  method: AuthMethods.Redirect
+  method: AuthMethods.Popup
 };
 
 @NgModule({
@@ -42,7 +35,7 @@ const myFirebaseAuthConfig = {
     TabsModule.forRoot()
   ],
   declarations: [
-    AppComponent, BookFilter, ClientFilter, InvoiceFilter,InvoiceDetailComponent, BookManagementComponent, ClientManagementComponent, IssueInvoiceComponent, InvoiceManagementComponent, PaymentInfoManagementComponent
+    AppComponent, BookFilter, ClientFilter
   ],
   providers: [],
   bootstrap: [AppComponent]
