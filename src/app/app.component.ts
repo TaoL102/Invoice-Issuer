@@ -1,26 +1,40 @@
-import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { BookFilter } from '../services/BookFilter';
-import { ClientFilter } from '../services/ClientFilter';
-
+import { Component, OnInit } from '@angular/core';
+import { AngularFire, FirebaseAuthState, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { Book } from 'models/book';
+import { Client } from 'models/client';
+import { Invoice } from 'models/invoice';
+import { PaymentInfo } from 'models/paymentInfo';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-
 })
 
-export class AppComponent {
-  searchBookKeyword: string;
-  books: FirebaseListObservable<any[]>;
-  clients: FirebaseListObservable<any[]>;
+export class AppComponent implements OnInit {
+
+  currentUser: FirebaseAuthState;
+  currentUserImgUrl:string;
+  books: FirebaseListObservable<Book[]>;
+  clients: FirebaseListObservable<Client[]>;
+  invoices: FirebaseListObservable<Invoice[]>;
+  paymentinfo: FirebaseObjectObservable<PaymentInfo>;
 
   constructor(public af: AngularFire) {
-    this.books = af.database.list('/books');
-    this.clients = af.database.list('/clients');
+        this.af.auth.subscribe(snapshot => {
+      this.currentUser = snapshot;
+      this.currentUserImgUrl=snapshot.google.photoURL;
+      console.log(this.currentUser);
+
+    this.books = this.af.database.list(this.currentUser.uid + '/books');
+    this.clients = this.af.database.list(this.currentUser.uid + '/clients');
+    this.invoices = this.af.database.list(this.currentUser.uid + '/invoices');
+    this.paymentinfo = this.af.database.object(this.currentUser.uid + '/paymentInfo');
+    });
 
   }
+
+  ngOnInit(): void {  }
 
   login() {
     this.af.auth.login();
@@ -30,52 +44,5 @@ export class AppComponent {
     this.af.auth.logout();
   }
 
-
-  addBook(newName: string, newPrice: string) {
-    var promise = this.books.push({ name: newName, price: newPrice });
-    this.showFirebaseResult(promise);
-  }
-  updateBook(key: string, newName: string, newPrice: string) {
-    var promise = this.books.update(key, { name: newName, price: newPrice });
-    this.showFirebaseResult(promise);
-  }
-  deleteBook(key: string) {
-    var promise = this.books.remove(key);
-    this.showFirebaseResult(promise);
-  }
-
-  addClient(name: string, email: string, address: string, city: string, postcode: string, country: string) {
-    var promise = this.clients.push({
-      name: name,
-      email: email,
-      address: address,
-      city: city,
-      postcode: postcode,
-      country: country
-    });
-    this.showFirebaseResult(promise);
-  }
-  updateClient(key: string, name: string, email: string, address: string, city: string, postcode: string, country: string) {
-    var promise = this.clients.update(key, {
-      name: name,
-      email: email,
-      address: address,
-      city: city,
-      postcode: postcode,
-      country: country
-    });
-    this.showFirebaseResult(promise);
-  }
-  deleteClient(key: string) {
-    var promise = this.clients.remove(key);
-    this.showFirebaseResult(promise);
-  }
-
-  showFirebaseResult(promise: firebase.Promise<void>) {
-
-    promise
-      .then(_ => console.log('success'))
-      .catch(err => console.log(err, 'Delete Failed!'));
-  }
 
 }

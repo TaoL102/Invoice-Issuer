@@ -13,8 +13,8 @@ transform(value, args?): any {
       return value;
     }
    return value.filter((book) => {
-       if(args[0]!=null){       
-            return book.name.toLowerCase().indexOf(args[0].toLowerCase()) > -1;    
+       if(args!=null){       
+            return book.name.toLowerCase().indexOf(args.toLowerCase()) > -1;    
        }
         });  
   }

@@ -1,0 +1,58 @@
+
+@media print{
+
+    button{
+        display: none;
+    }
+    input{
+        border: 0;
+    }
+
+    div.page
+      {
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+}
+
+.form-control:disabled {
+    cursor: text;
+    border: 0;
+    background-color: unset;
+    padding:0;
+    line-height: 1rem;
+}
+
+.btn.disabled, .btn:disabled {
+    display: none;
+    }
+
+div{
+    line-height:1.0;
+}
+
+table{
+     border-top:1px solid black;
+     border-bottom:1px solid black;
+}
+
+.table thead th {
+    border-bottom: 1px solid black;
+}
+
+.table tbody td {
+    border-bottom: 0px solid black;
+}
+
+.table thead td {
+    border-bottom: 1px solid black;
+}
+
+.table td, .table th {
+    border-top: 0px solid black; 
+}
+
+.border{
+    border:1px solid black;
+    margin-bottom:1rem;   
+}

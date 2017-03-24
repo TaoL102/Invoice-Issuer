@@ -1,0 +1,30 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-md-4 unprintable">
+
+    <h5>Choose Invoice:</h5>
+
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownInvoicesButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+    Choose Invoice:
+  </button>
+      <div class="dropdown-menu  form-control" aria-labelledby="dropdownInvoicesButton">
+        <input type="text" class="form-control" value="" [(ngModel)]="filterInvoiceKeyWord">
+        <a *ngFor="let invoice of invoices | async | invoiceFilter:filterInvoiceKeyWord " class="dropdown-item" (click)="invoiceSeleted(invoice)">{{invoice.invoiceNumber}}</a>
+      </div>
+    </div>
+
+
+    <div class="d-flex flex-column" *ngIf="invoice!=null">
+      <button class="btn btn-primary w-100" (click)="print()">Print Invoice</button>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-8" *ngIf="invoice!=null">
+    <invoice-detail [invoice]="invoice"></invoice-detail>
+  <div>
+
+</div>

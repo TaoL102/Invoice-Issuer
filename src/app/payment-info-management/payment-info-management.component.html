@@ -1,0 +1,39 @@
+
+<div class="form-group">
+  <label>Name:</label>
+  <input type="text" class="form-control" #newName [value]="(paymentinfo | async )?.name">
+  <label>Address:</label>
+  <input type="text" class="form-control" #newAddress [value]="(paymentinfo | async )?.address">
+  <label>City:</label>
+  <input type="text" class="form-control" #newCity  [value]="(paymentinfo | async )?.city">
+  <label>Post Code:</label>
+  <input type="text" class="form-control" #newPostCode  [value]="(paymentinfo | async )?.postcode">
+  <label>Country:</label>
+  <input type="text" class="form-control"  #newCountry [value]="(paymentinfo | async )?.country">
+  <label>Contact:</label>
+  <input type="text" class="form-control" #newContact  [value]="(paymentinfo | async )?.contact">
+  <label>Email:</label>
+  <input type="text" class="form-control"  #newEmail [value]="(paymentinfo | async )?.email">
+  <label>Account Name:</label>
+  <input type="text" class="form-control"  #newAccountName [value]="(paymentinfo | async )?.accountName">
+  <label>GST Number:</label>
+  <input type="text" class="form-control"  #newGSTNumber [value]="(paymentinfo | async )?.gstNumber">
+  <label>Account Number:</label>
+  <input type="text" class="form-control"  #newAccountNumber [value]="(paymentinfo | async )?.accountNumber">
+
+
+
+  <button class="btn btn-primary" (click)="updatePaymentInfo(
+    newName.value,
+    newAddress.value,
+    newCity.value,
+    newPostCode.value,
+    newCountry.value,
+    newContact.value,
+    newEmail.value,
+    newAccountName.value,
+    newGSTNumber.value,
+    newAccountNumber.value
+    )">Update</button>
+
+</div>

@@ -1,0 +1,138 @@
+<div class="page ">
+<h6></h6>
+  <h1 class="text-center">Tax Invoice</h1>
+
+  <!--Header-->
+  <div class="d-flex justify-content-start border">
+    <div class="p-4">
+      <div>{{invoice?.paymentInfo?.name}}</div>
+      <div>{{invoice?.paymentInfo?.address}}</div>
+      <div>{{invoice?.paymentInfo?.city}} {{invoice?.paymentInfo?.postcode}}</div>
+      <div>{{invoice?.paymentInfo?.country}}</div>
+      <div>{{invoice?.paymentInfo?.contact}}</div>
+      <div>{{invoice?.paymentInfo?.email}}</div>
+    </div>
+    <div class="p-4 ml-auto ">
+      <div>Invoice No. {{invoice?.invoiceNumber}}</div>
+      <div>GST No. {{invoice?.paymentInfo?.gstNumber}}</div>
+      <div>Date: {{invoice.date | date: 'dd MMM yyyy'}}</div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column border">
+    <!--Deliver to-->
+    <div class="d-flex justify-content-start  ">
+      <div class="p-4">
+        <h6>To:</h6>
+        <div>{{invoice?.client?.name}}</div>
+        <div>{{invoice?.client?.address}}</div>
+        <div>{{invoice?.client?.city}} {{invoice?.client?.postcode}}</div>
+        <div>{{invoice?.client?.country}}</div>
+      </div>
+    </div>
+
+    <!--Order Detail-->
+    <table class="table table-hover  ">
+      <thead class="thead-light">
+        <tr>
+          <th class="w-50">Book</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Discount(%)</th>
+          <th>Total</th>
+          <th *ngIf="isEditable"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of booksInInvoice ">
+          <td>{{book.name}}</td>
+          <td>{{book.price | currency:'NZD':true:'1.2-2'}}</td>
+          <td><input type="number" [disabled]="!isEditable" class="form-control" #updateBookQuantity [value]="book.quantity"
+              (change)="quantityChanged(book,updateBookQuantity.value)" /></td>
+          <td><input type="text" [disabled]="!isEditable" class="form-control" #updateBookDiscount [value]="book.discount  |  number : '1.2-2'"
+              (change)="discountChanged(book,updateBookDiscount.value)" /></td>
+          <td>{{book.total | currency:'NZD':true:'1.2-2'}}</td>
+
+          <td *ngIf="isEditable">
+            <button class="btn btn-danger" [disabled]="!isEditable" (click)="deleteBookInInvoice(book)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--Order Total-->
+    <div class="d-flex justify-content-end  ">
+      <div class="p-2">
+        <div>Sub Total: </div>
+        <div>Postage: </div>
+        <div>GST: </div>
+        <div>Total: </div>
+      </div>
+      <div class="p-2">
+        <div>{{invoice?.subTotal | currency:'NZD':true:'1.2-2'}}</div>
+        <div>{{invoice?.postage | currency:'NZD':true:'1.2-2'}}</div>
+        <div>{{invoice?.gst | currency:'NZD':true:'1.2-2'}}</div>
+        <div>{{invoice?.total | currency:'NZD':true:'1.2-2'}}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border">
+    <h6 class="text-center">PLEASE DETACH AND RETURN WITH YOUR REMITTANCE TO</h6>
+
+    <div class="d-flex justify-content-start ">
+      <div class="p-4" style="padding-top:1rem!important;padding-bottom: 1rem!important">
+        <div>{{invoice?.paymentInfo?.name}}</div>
+        <div>{{invoice?.paymentInfo?.address}}</div>
+        <div>{{invoice?.paymentInfo?.city}} {{invoice?.paymentInfo?.postcode}}</div>
+        <div>{{invoice?.paymentInfo?.country}}</div>
+      </div>
+
+      <div class="p-4 ml-auto" style="padding-top:1rem!important;padding-bottom: 1rem!important">
+        <div>Customer: {{invoice?.client?.name}}</div>
+        <div>Invoice No. <strong> {{invoice?.invoiceNumber}}</strong></div>
+        <div>Total:<strong> {{invoice?.total | currency:'NZD':true:'1.2-2'}}</strong></div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column">
+      <div class="p-4 " style="padding-top:0rem!important;padding-bottom: 0rem!important">Direct Credit: Please quote the invoice number in the Code field of your Direct Credit.</div>
+      <div class="p-4 " style="padding-top:0rem!important;padding-bottom:0.5rem!important">Account No. <strong>{{invoice?.paymentInfo?.accountNumber}}</strong> ; Account Name: <strong>{{invoice?.paymentInfo?.accountName}}</strong></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Parcel Slip-->
+<div class="d-plex border">
+  <div class="p-4">
+    <h6></h6>
+    <h3>To:</h3>
+    <h4>{{invoice?.client?.name}}</h4>
+    <h4>{{invoice?.client?.address}}</h4>
+    <h4>{{invoice?.client?.city}} {{invoice?.client?.postcode}}</h4>
+    <h4>{{invoice?.client?.country}}</h4>
+    <p></p>
+    <h6>Sender: {{invoice?.paymentInfo?.name}},{{invoice?.paymentInfo?.address}},{{invoice?.paymentInfo?.city}} {{invoice?.paymentInfo?.postcode}},
+      {{invoice?.paymentInfo?.country}}
+    </h6>
+  </div>
+</div>
+
+<!--Parcel Slip-->
+<div class="d-plex border">
+  <div class="p-4">
+    <h6></h6>
+    <h3>To:</h3>
+    <h4>{{invoice?.client?.name}}</h4>
+    <h4>{{invoice?.client?.address}}</h4>
+    <h4>{{invoice?.client?.city}} {{invoice?.client?.postcode}}</h4>
+    <h4>{{invoice?.client?.country}}</h4>
+    <p></p>
+    <h6>Sender: {{invoice?.paymentInfo?.name}},{{invoice?.paymentInfo?.address}},{{invoice?.paymentInfo?.city}} {{invoice?.paymentInfo?.postcode}},
+      {{invoice?.paymentInfo?.country}}
+    </h6>
+  </div>
+</div>

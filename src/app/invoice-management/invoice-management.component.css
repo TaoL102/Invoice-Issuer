@@ -1,6 +1,9 @@
 @media print{
 
-   nav{
+   .unprintable{
         display: none;
     }
+
+    
+
 }

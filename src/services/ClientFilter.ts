@@ -13,9 +13,9 @@ transform(value, args?): any {
       return value;
     }
    return value.filter((client) => {
-       if(args[0]!=null){       
-            return client.name.toLowerCase().indexOf(args[0].toLowerCase()) > -1
-            || client.email.toLowerCase().indexOf(args[0].toLowerCase()) > -1
+       if(args!=null){       
+            return client.name.toLowerCase().indexOf(args.toLowerCase()) > -1
+            || client.email.toLowerCase().indexOf(args.toLowerCase()) > -1
             ;    
        }
         });  
