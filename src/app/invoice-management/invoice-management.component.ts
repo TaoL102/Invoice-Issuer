@@ -1,10 +1,10 @@
 import { Component, OnInit,Input,Injectable, Pipe, PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { BookFilter } from 'services/BookFilter';
-import { ClientFilter } from 'services/ClientFilter';
-import { Invoice } from 'models/invoice';
-import { Book } from 'models/book';
-import { Client } from 'models/client';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { BookFilter } from '../../services/BookFilter';
+import { ClientFilter } from '../../services/ClientFilter';
+import { Invoice } from '../../models/invoice';
+import { Book } from '../../models/book';
+import { Client } from '../../models/client';
 
 @Component({
   selector: 'invoice-management',

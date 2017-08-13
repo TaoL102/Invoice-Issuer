@@ -1,5 +1,6 @@
 import {Injectable} from '../../node_modules/@angular/core';
 import * as $ from 'jquery';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class SharedMethods{

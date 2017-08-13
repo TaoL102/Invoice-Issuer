@@ -1,5 +1,4 @@
 <div class="page ">
-<h6></h6>
   <h1 class="text-center">Tax Invoice</h1>
 
   <!--Header-->
@@ -14,8 +13,9 @@
     </div>
     <div class="p-4 ml-auto ">
       <div>Invoice No. {{invoice?.invoiceNumber}}</div>
+      <div>Order No. {{invoice?.orderNumber}}</div>
       <div>GST No. {{invoice?.paymentInfo?.gstNumber}}</div>
-      <div>Date: {{invoice.date | date: 'dd MMM yyyy'}}</div>
+      <div>Date: {{invoice?.date | date: 'dd MMM yyyy'}}</div>
     </div>
   </div>
 
@@ -32,7 +32,7 @@
     </div>
 
     <!--Order Detail-->
-    <table class="table table-hover  ">
+    <table class="table table-hover  " style="page-break-inside:auto">
       <thead class="thead-light">
         <tr>
           <th class="w-50">Book</th>
@@ -60,7 +60,7 @@
     </table>
 
     <!--Order Total-->
-    <div class="d-flex justify-content-end  ">
+    <div class="d-flex justify-content-end  " style="page-break-inside:auto">
       <div class="p-2">
         <div>Sub Total: </div>
         <div>Postage: </div>
@@ -77,7 +77,7 @@
 
   </div>
 
-  <div class="border">
+  <div class="border" style="page-break-inside:auto">
     <h6 class="text-center">PLEASE DETACH AND RETURN WITH YOUR REMITTANCE TO</h6>
 
     <div class="d-flex justify-content-start ">

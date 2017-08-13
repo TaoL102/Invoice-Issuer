@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Invoice } from 'models/invoice';
-import { BookInInvoice } from 'models/bookInInvoice';
+import { Invoice } from '../../models/invoice';
+import { BookInInvoice } from '../../models/bookInInvoice';
 
 @Component({
   selector: 'invoice-detail',

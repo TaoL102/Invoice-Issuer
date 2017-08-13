@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Injectable, Pipe, PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { BookFilter } from 'services/BookFilter';
-import { ClientFilter } from 'services/ClientFilter';
-import { Invoice } from 'models/invoice';
-import { Book } from 'models/book';
-import { Client } from 'models/client';
-import { PaymentInfo } from 'models/paymentInfo';
-import { SharedMethods } from 'shared/methods';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { BookFilter } from '../../services/BookFilter';
+import { ClientFilter } from '../../services/ClientFilter';
+import { Invoice } from '../../models/invoice';
+import { Book } from '../../models/book';
+import { Client } from '../../models/client';
+import { PaymentInfo } from '../../models/paymentInfo';
+import { SharedMethods } from '../../shared/methods';
+import { CookieService } from 'ngx-cookie';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'issue-invoice',
@@ -18,6 +20,7 @@ export class IssueInvoiceComponent implements OnInit {
   selectedClient: Client;
   invoice: Invoice;
   booksNotEmpty: boolean;
+  isOrderNumberConfirmed:boolean;
   isPostageConfirmed: boolean;
   isInvoiceSaved: boolean;
 
@@ -30,11 +33,11 @@ export class IssueInvoiceComponent implements OnInit {
   @Input()
   invoices: FirebaseListObservable<Invoice[]>;
 
-  constructor(public af: AngularFire) {
+  constructor(private cookieService:CookieService) {
   }
 
   ngOnInit() {
-    this.invoice = new Invoice();
+    this.invoice = new Invoice(this.cookieService);
     this.paymentinfo.subscribe(snapshot => {
       this.invoice.paymentInfo = snapshot;
     })
@@ -56,7 +59,12 @@ export class IssueInvoiceComponent implements OnInit {
 
   updatePostage(postage) {
     this.isPostageConfirmed = true;
-    this.invoice.postage = postage;
+    this.invoice.updatePostage(postage);
+  }
+
+  updateOrderNumber(orderNumber){
+    this.isOrderNumberConfirmed=true;
+    this.invoice.orderNumber=orderNumber;
   }
 
   saveInvoice() {
@@ -65,12 +73,27 @@ export class IssueInvoiceComponent implements OnInit {
     promise
       .then(_ => {
         this.isInvoiceSaved = true;
-        this.invoice.saveIdToCookies();
+        this.saveIdToCookies();
       })
-      .catch(err => console.log(err, 'Delete Failed!'));
+      .catch(err => console.log(err, 'Save Failed!'));
   }
 
   print() {
     window.print();
   }
+
+  saveIdToCookies() {
+    let dateToday: string = new DatePipe('en-NZ').transform(new Date(), 'yyMMdd');
+    let invoicesToday: string = this.cookieService.get(dateToday);
+
+    if (invoicesToday == null) {
+        this.cookieService.put(dateToday, this.invoice.invoiceNumber);
+    }
+    else {
+        // split 
+        let array: Array<string> = invoicesToday.split(',');
+        array.push(this.invoice.invoiceNumber);
+        this.cookieService.put(dateToday, array.toString());
+    }
+}
 }

@@ -1,12 +1,13 @@
-import { PaymentInfo } from 'models/paymentInfo';
+import { PaymentInfo } from '../models/paymentInfo';
 import { DatePipe } from '@angular/common';
-import { Client } from 'models/client';
-import { Book } from 'models/book';
-import { BookInInvoice } from 'models/bookInInvoice';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { Client } from '../models/client';
+import { Book } from '../models/book';
+import { BookInInvoice } from '../models/bookInInvoice';
+import { CookieService } from 'ngx-cookie';
 
 export class Invoice {
     invoiceNumber: string;
+    orderNumber: string;
     date: number;
     client: Client;
     books: Array<BookInInvoice>;
@@ -16,9 +17,9 @@ export class Invoice {
     total: number;
     paymentInfo: PaymentInfo;
 
-    constructor() {
+    constructor(cookieService:CookieService) {
 
-        this.invoiceNumber = this.generateId();
+        this.invoiceNumber = this.generateId(cookieService);
         this.books = new Array<BookInInvoice>();
         this.date = new Date().getTime();
         this.subTotal = 0;
@@ -31,8 +32,7 @@ export class Invoice {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    generateId() {
-        let cookieService = new CookieService();
+    generateId(cookieService:CookieService) {
         let dateToday: string = new DatePipe('en-NZ').transform(new Date(), 'yyMMdd');
         let invoicesToday: string = cookieService.get(dateToday);
 
@@ -57,21 +57,7 @@ export class Invoice {
         }
     }
 
-    saveIdToCookies() {
-        let cookieService = new CookieService();
-        let dateToday: string = new DatePipe('en-NZ').transform(new Date(), 'yyMMdd');
-        let invoicesToday: string = cookieService.get(dateToday);
 
-        if (invoicesToday == null) {
-            cookieService.put(dateToday, this.invoiceNumber);
-        }
-        else {
-            // split 
-            let array: Array<string> = invoicesToday.split(',');
-            array.push(this.invoiceNumber);
-            cookieService.put(dateToday, array.toString());
-        }
-    }
 
     addBook(book: any) {
         let bookInInvoice = this.books.find(o => o.key == book.$key);
@@ -119,6 +105,11 @@ export class Invoice {
         this.calculateTotalDetails();
     }
 
+    updatePostage(postage:number){
+        this.postage=postage;
+        this.calculateTotalDetails();
+    }
+
     calculateTotalDetails() {
         this.calculateSubTotal();
         this.calculateGst();
@@ -138,7 +129,7 @@ export class Invoice {
     }
 
     calculateTotal() {
-        this.total = (Number.parseFloat(this.subTotal.toString()) + Number.parseFloat(this.postage.toString())) * 1.15;
+        this.total = (Number.parseFloat(this.subTotal.toString()) +Number.parseFloat(this.postage.toString())+ Number.parseFloat(this.gst.toString())) ;
     }
 
 

@@ -1,19 +1,4 @@
 
-@media print{
-
-    button{
-        display: none;
-    }
-    input{
-        border: 0;
-    }
-
-    div.page
-      {
-        page-break-after: always;
-        page-break-inside: avoid;
-      }
-}
 
 .form-control:disabled {
     cursor: text;
@@ -53,6 +38,6 @@ table{
 }
 
 .border{
-    border:1px solid black;
+    border:1px solid black !important;
     margin-bottom:1rem;   
 }

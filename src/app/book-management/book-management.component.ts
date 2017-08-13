@@ -1,8 +1,8 @@
 import { Component, OnInit,Input, Pipe, PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { BookFilter } from 'services/BookFilter';
-import {Book} from 'models/book';
-import { SharedMethods} from 'shared/methods';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { BookFilter } from '../../services/BookFilter';
+import {Book} from '../../models/book';
+import { SharedMethods} from '../../shared/methods';
 
 @Component({
   selector: 'book-management',

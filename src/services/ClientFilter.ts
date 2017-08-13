@@ -1,5 +1,5 @@
 import { Component,Injectable,Pipe,PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable , FirebaseObjectObservable} from 'angularfire2';
+import { FirebaseListObservable , FirebaseObjectObservable} from 'angularfire2/database';
 
 @Pipe({
   name: 'clientFilter'

@@ -1,8 +1,8 @@
 import { Component, OnInit,Input, Pipe, PipeTransform } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { ClientFilter } from 'services/ClientFilter';
-import { Client } from 'models/client';
-import { SharedMethods} from 'shared/methods';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { ClientFilter } from '../../services/ClientFilter';
+import { Client } from '../../models/client';
+import { SharedMethods} from '../../shared/methods';
 
 @Component({
   selector: 'client-management',

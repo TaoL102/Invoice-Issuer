@@ -1,53 +1,56 @@
-<!-- Enable bootstrap 4 theme -->
-<script>
-  window.__theme = 'bs4';
-
-</script>
-
 <!--Navbar-->
-<nav class="navbar navbar-inverse bg-primary fixed-top navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<nav *ngIf="(currentUser | async)?.uid !=null" class="navbar  fixed-top navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Invoice Issuer</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" style="color: white">Invoice Issuer</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-    <!-- Nav tabs -->
-    <ul class="navbar-nav" role="tablist">
-     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        Invoices
-      </a>
-      <div class="dropdown-menu">
-                <a class="dropdown-item" id="issue-invoice-tab" href="#issue-invoice" role="tab" data-toggle="tab" aria-controls="issue-invoice">Issue Invoice</a>
-        <a class="dropdown-item" id="invoice-management-tab" href="#invoice-management" role="tab" data-toggle="tab" aria-controls="invoice-management" aria-expanded="true">Invoices</a>
-      </div>
-    </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#clients" role="tab">Clients</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#books" role="tab">Books</a>
-      </li>
-            <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#paymentInfo-management" role="tab">Payment Info</a>
-      </li>
-
-    </ul>
-
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    
+<!-- Nav tabs -->
+<ul class="nav nav-pills " role="tablist">
+  <li class="nav-item dropdown" style="cursor:pointer">
+   <a class="nav-link dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+     Invoices
+   </a>
+   <div class="dropdown-menu">
+    <a class="dropdown-item" id="issue-invoice-tab" href="#issue-invoice" role="tab" data-toggle="tab">Issue Invoice</a>
+     <a class="dropdown-item" id="invoice-management-tab" href="#invoice-management" role="tab" data-toggle="tab"  aria-expanded="true">Invoices</a>
+   </div>
+ </li>
+   <li class="nav-item">
+     <a class="nav-link" data-toggle="tab" href="#clients" role="tab">Clients</a>
+   </li>
+   <li class="nav-item">
+     <a class="nav-link" data-toggle="tab" href="#books" role="tab">Books</a>
+   </li>
+         <li class="nav-item">
+     <a class="nav-link" data-toggle="tab" href="#paymentInfo-management" role="tab">Payment Info</a>
+   </li>
+   <li  class="nav-item">
       <!--Login & Logout-->
-      <div class="ml-auto"  *ngIf="currentUser!=null">
+    <div class="ml-auto"  *ngIf="currentUser!=null">
         <span class="navbar-text">
-      {{ currentUser?.google.displayName }} 
+      {{ (currentUser | async)?.displayName }} 
     </span>
-    <img style="width: 40px;height:40px;" [src]= "currentUserImgUrl" alt="..." class="rounded-circle">
-        <a class="nav-item nav-link"  *ngIf="!(af.auth | async)" (click)="login()">Login</a>
-        <!--<a class="nav-item nav-link"  *ngIf="(af.auth | async)" (click)="logout()">Logout</a>-->
+    <img style="width: 40px;height:40px;" [src]= "(currentUser | async)?.photoURL" alt="..." class="rounded-circle">
       </div>
+    
+    </li>
+   <li  class="nav-item">
+      <a class=" nav-link" href="#" (click)="logout()">Logout</a>
+  
+   </li>
+ </ul>
 
   </div>
+
+ 
 </nav>
+
+
+
+
+
 
 <!--Alert-->
 <div class="alert fixed-top" role="alert" style="
@@ -55,32 +58,54 @@
   <strong>Successful!</strong> Your data has been saved.</div>
 
 <!-- Tab panes -->
-<div class="tab-content container-fluid" style="top:100px">
+<div *ngIf="(currentUser | async)!=null" class="tab-content container-fluid" >
 
   <!--Books-->
-  <div class="tab-pane " id="books" role="tabpanel">
+  <div class="tab-pane fade" id="books" role="tabpanel">
    <book-management *ngIf="books!=null" [books]="books"></book-management>
   </div>
 
 
   <!--Clients-->
-  <div class="tab-pane" id="clients" role="tabpanel">
+  <div class="tab-pane fade " id="clients" role="tabpanel">
     <client-management *ngIf="clients!=null"  [clients]="clients"></client-management>
   </div>
 
   <!--Invoice Management-->
-  <div class="tab-pane " id="invoice-management" role="tabpanel">
+  <div class="tab-pane fade" id="invoice-management" role="tabpanel">
 <invoice-management  *ngIf="invoices!=null"  [invoices]="invoices" ></invoice-management>
   </div>
 
     <!--Issue Invoice-->
-  <div class="tab-pane " id="issue-invoice" role="tabpanel">
+  <div class="tab-pane fade" id="issue-invoice" role="tabpanel">
 <issue-invoice  *ngIf="clients!=null&&books!=null&&paymentinfo!=null&&invoices!=null" [invoices]="invoices" [clients]="clients" [paymentinfo]="paymentinfo" [books]="books"></issue-invoice>
   </div>
 
       <!--Payment Info Management-->
-  <div class="tab-pane " id="paymentInfo-management" role="tabpanel">
+  <div class="tab-pane fade" id="paymentInfo-management" role="tabpanel">
 <payment-info-management  *ngIf="paymentinfo!=null"  [paymentinfo]="paymentinfo"></payment-info-management>
   </div>
 
 </div>
+
+<!-- Login -->
+<div *ngIf="isLoginRequired" class="center">
+    <div class="login">
+        <h3>Sign in:</h3>
+      
+        <div class="quickstart-user-details-container">
+          <button id="quickstart-button" class="loginBtn loginBtn--google" (click)="login()">Sign-in with Google</button>
+        </div>
+    </div>
+  </div>
+
+<!-- Loader -->
+<div  *ngIf="isLoading" class="center">
+    <div class="loader">
+      <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+      </svg>
+    </div>
+  </div>
+
+

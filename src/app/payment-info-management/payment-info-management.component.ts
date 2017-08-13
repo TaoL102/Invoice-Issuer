@@ -1,7 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {PaymentInfo} from 'models/paymentInfo';
-import { SharedMethods} from 'shared/methods';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { PaymentInfo } from '../../models/paymentInfo';
+import { SharedMethods} from '../../shared/methods';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'payment-info-management',
