@@ -14,6 +14,8 @@ import { Client } from '../../models/client';
 export class InvoiceManagementComponent implements OnInit {
 
 filterInvoiceKeyWord:string;
+
+@Input()
 invoice:Invoice;
 
  @Input()

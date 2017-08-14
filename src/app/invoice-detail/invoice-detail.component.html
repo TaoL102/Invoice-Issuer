@@ -44,7 +44,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let book of booksInInvoice ">
+        <tr *ngFor="let book of invoice?.books ">
           <td>{{book.name}}</td>
           <td>{{book.price | currency:'NZD':true:'1.2-2'}}</td>
           <td><input type="number" [disabled]="!isEditable" class="form-control" #updateBookQuantity [value]="book.quantity"

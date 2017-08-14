@@ -10,17 +10,16 @@ import { BookInInvoice } from '../../models/bookInInvoice';
 export class InvoiceDetailComponent implements OnInit {
 
   @Input()
-  invoice: Invoice;
+  invoice:Invoice;
   @Input()
   isEditable:boolean;
-
-  booksInInvoice: Array<BookInInvoice>;
-
   constructor() { }
 
   ngOnInit() {
-    this.booksInInvoice = this.invoice.books;
+   
   }
+
+
   quantityChanged(book:BookInInvoice,updateBookQuantity:number){
     if(updateBookQuantity<=0){
       this.invoice.deleteBook(book);
