@@ -11,10 +11,10 @@ export class SharedMethods{
 
     promise
       .then(_ => {
-        $(".alert").css("background-color","#59BD07").show().delay(5000).fadeOut();
+        $(".alert").css("background-color","#59BD07").show().delay(2000).fadeOut();
       })
       .catch(err => {
-         $(".alert").html("<strong>Error</strong> "+err+".").css("background-color","#D6D6D6").show().delay(5000).fadeOut();
+         $(".alert").html("<strong>Error</strong> "+err+".").css("background-color","#D6D6D6").show().delay(2000).fadeOut();
       });
   }
 }

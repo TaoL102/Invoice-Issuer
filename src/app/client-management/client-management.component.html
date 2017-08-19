@@ -1,10 +1,10 @@
 <div class="form-group">
-      <label>Search:</label>
-      <input type="text" class="form-control" value="" [(ngModel)]="filterClientKeyWord">
+      <h5>Search:</h5>
+      <input type="text" class="form-control" value="" placeholder="Search by client name" [(ngModel)]="filterClientKeyWord">
     </div>
     <table class="table table-hover">
       <thead class="thead-light text-white">
-        <tr class=" bg-primary">
+        <tr class=" bg-secondary">
           <th>#</th>
           <th>Name</th>
           <th>Email</th>
@@ -12,7 +12,7 @@
           <th>City</th>
           <th>Post Code</th>
           <th>Country</th>
-          <th>Admin</th>
+          <th style="width:120px">Admin</th>
         </tr>
       </thead>
       <tbody>
@@ -24,14 +24,14 @@
           <td><input type="text" class="form-control" #newClientCity /></td>
           <td><input type="text" class="form-control" #newClientPostCode /></td>
           <td><input type="text" class="form-control" #newClientCountry /></td>
-          <td><button class="btn btn-primary" (click)="addClient(
+          <td><button class="btn btn-outline-primary  btn-sm" (click)="addClient(
             newClientName.value,
             newClientEmail.value,
             newClientAddress.value,
             newClientCity.value,
             newClientPostCode.value,
             newClientCountry.value
-          )">Add</button></td>
+          )"><i class="material-icons">add_box</i></button></td>
         </tr>
         <tr *ngFor="let client of clients | async | clientFilter:filterClientKeyWord ; let i = index;">
           <th scope="row">{{i+1}}</th>
@@ -41,7 +41,7 @@
           <td><input type="text" class="form-control" #updateClientCity [value]="client.city" /></td>
           <td><input type="text" class="form-control" #updateClientPostCode [value]="client.postcode" /></td>
           <td><input type="text" class="form-control" #updateClientCountry [value]="client.country" /></td>
-          <td> <button class="btn btn-primary" (click)="updateClient(
+          <td> <button class="btn btn-outline-primary  btn-sm" (click)="updateClient(
             client.$key,
              updateClientName.value,
              updateClientEmail.value,
@@ -49,8 +49,8 @@
              updateClientCity.value,
              updateClientPostCode.value,
              updateClientCountry.value
-             )">Update</button>
-            <button class="btn btn-danger" (click)="deleteClient(client.$key)">Delete</button></td>
+             )"><i class="material-icons">edit</i></button>
+            <button class="btn btn-outline-danger  btn-sm" (click)="deleteClient(client.$key)"><i class="material-icons">delete</i></button></td>
         </tr>
       </tbody>
     </table>

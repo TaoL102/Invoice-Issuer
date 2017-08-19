@@ -1,4 +1,5 @@
 import { Component,Injectable,Pipe,PipeTransform } from '@angular/core';
+import { Client } from '../models/client';
 
 @Pipe({
   name: 'invoiceFilter'
@@ -13,9 +14,13 @@ transform(value, args?): any {
     }
    return value.filter((invoice) => {
        if(args!=null){   
-         let str:string= invoice.invoiceNumber;
+         let strInvNo:string= invoice.invoiceNumber;
+         let client:Client= invoice.client;
+         let strCliName=client.name;
+
          console.log(args);
-            return str.indexOf(args.toLowerCase()) > -1;   
+         console.log(strCliName);
+            return strInvNo.indexOf(args.toLowerCase()) > -1 || strCliName.toLowerCase().indexOf(args.toLowerCase()) > -1;   
        }
         });  
   }

@@ -1,4 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+html{
+    background: #00c6ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+body{
+    margin: 5rem !important;
+    border-radius: 1rem !important;
+    margin-top: 8rem !important;
+    padding: 5rem !important;
+    font-family: Roboto, sans-serif !important;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+  }
+
+  hr {
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
+    border-top: 1px solid black !important;
+}
+
+.center {
+    /* position: absolute; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    display: flex;
+  }
 
 @media print{
     nav{
@@ -6,14 +41,35 @@
     }
 
         button{
-            display: none;
+            display: none !important;
         }
         input{
             border: 0;
+            color:black !important;
+    font-size: 0.8rem !important;
         }
-        .tab-content{
-            margin-top: 0px !important;
+        body{
+            margin: 0px !important;
+            padding:0px !important;
+    font-size: 0.8rem !important;
         }
+        html{
+            background-color: white !important;
+            background: white !important;
+        }
+        body{
+            background-color: white !important;
+            background: white !important;
+        }
+
+        .alert{
+            display: none;
+        }
+        .table tbody td {
+            padding: 0.3rem !important;
+        }
+
+        
         div.page
           {
             page-break-after: always;

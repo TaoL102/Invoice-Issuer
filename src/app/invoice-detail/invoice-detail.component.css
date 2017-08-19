@@ -13,7 +13,7 @@
     }
 
 div{
-    line-height:1.0;
+    line-height:1.2;
 }
 
 table{
@@ -23,21 +23,32 @@ table{
 
 .table thead th {
     border-bottom: 1px solid black;
+    vertical-align: middle;
 }
 
 .table tbody td {
     border-bottom: 0px solid black;
+    vertical-align: middle;
 }
 
 .table thead td {
     border-bottom: 1px solid black;
+    vertical-align: middle;
 }
 
 .table td, .table th {
     border-top: 0px solid black; 
+    vertical-align: middle;
 }
 
 .border{
     border:1px solid black !important;
     margin-bottom:1rem;   
+}
+
+.p-4 {
+    padding: 1.3rem !important;          
+    padding-left: 0.5rem !important; 
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
 }

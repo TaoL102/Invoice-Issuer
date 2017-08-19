@@ -1,9 +1,5 @@
 
-    body { padding: 2em; }
 
-    .tab-content{
-        margin-top: 100px;
-    }
 
     /* Shared */
     .loginBtn {
@@ -55,15 +51,7 @@
     background: #E74B37;
     }
 
-    .center {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        align-items: center;
-        display: flex;
-      }
+
       
       .loader {
         position: relative;

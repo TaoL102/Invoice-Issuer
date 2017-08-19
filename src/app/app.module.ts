@@ -12,6 +12,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BookFilter } from '../services/BookFilter';
 import { ClientFilter } from '../services/ClientFilter';
 import { InvoiceFilter } from '../services/InvoiceFilter';
+import { OrderBy } from '../services/OrderBy';
 import { InvoiceDetailComponent } from './invoice-detail/invoice-detail.component';
 import { BookManagementComponent } from './book-management/book-management.component';
 import { ClientManagementComponent } from './client-management/client-management.component';
@@ -40,6 +41,7 @@ import { environment } from '../environments/environment';
     BookFilter, 
     ClientFilter, 
     InvoiceFilter,
+    OrderBy,
     InvoiceDetailComponent, 
     BookManagementComponent, 
     ClientManagementComponent, 

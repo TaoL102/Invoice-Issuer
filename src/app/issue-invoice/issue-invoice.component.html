@@ -1,41 +1,40 @@
-
 <div class="row d-flex justify-content-center">
   <div *ngIf="!isInvoiceSaved" class="col-md-4">
 
-   
-      <h5>Step 1.</h5>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownClientsButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+    <h5>Step 1.</h5>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownClientsButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
     Choose Client:
   </button>
-        <div class="dropdown-menu  form-control" aria-labelledby="dropdownClientsButton">
-          <input type="text" class="form-control" value="" [(ngModel)]="filterClientKeyWord">
-          <a *ngFor="let client of clients | async | clientFilter:filterClientKeyWord " class="dropdown-item" (click)="clientSeleted(client)">{{client.name}}</a>
-        </div>
+      <div class="dropdown-menu scrollable-menu form-control" aria-labelledby="dropdownClientsButton">
+        <input type="text" class="form-control" value="" placeholder="Search by client name" [(ngModel)]="filterClientKeyWord">
+        <a *ngFor="let client of clients | async | clientFilter:filterClientKeyWord " class="dropdown-item" (click)="clientSeleted(client)">{{client.name}}</a>
+      </div>
+    </div>
+
+    <div [hidden]="selectedClient==null">
+      <h5>Step 2.</h5>
+
+      <div class="d-flex flex-column">
+        <input class="form-control w-100" type="text" #orderNumber>
+        <button class="btn btn-secondary w-100" (click)="updateOrderNumber(orderNumber.value)">Confirm Order Number</button>
       </div>
 
-      <div  [hidden]="selectedClient==null">
-        <h5>Step 2.</h5>
-  
-          <div class="d-flex flex-column">
-            <input class="form-control w-100" type="text" #orderNumber>
-            <button class="btn btn-warning w-100" (click)="updateOrderNumber(orderNumber.value)">Confirm Order Number</button>
-          </div>
-  
-  </div>
+    </div>
 
 
-<div [hidden]="!isOrderNumberConfirmed">
+    <div [hidden]="!isOrderNumberConfirmed">
       <h5>Step 3.</h5>
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownBooksButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-    Choose Books:
+    Choose Items:
   </button>
-        <div class="dropdown-menu  form-control" aria-labelledby="dropdownBooksButton">
-          <input type="text" class="form-control" value="" [(ngModel)]="filterBookKeyWord">
+        <div class="dropdown-menu scrollable-menu form-control" aria-labelledby="dropdownBooksButton">
+          <input type="text" class="form-control" value="" placeholder="Search by item description" [(ngModel)]="filterBookKeyWord">
           <a *ngFor="let book of books | async | bookFilter:filterBookKeyWord " class="dropdown-item" (click)="bookSeleted(book)">{{book.name}}</a>
+
         </div>
       </div>
 
@@ -45,41 +44,43 @@
           <button class="btn btn-primary ml-auto w-25" (click)="addBookToInvoice(selectedBook)">Add</button>
         </div>
       </div>-->
-</div>
+    </div>
 
 
-<div  [hidden]="!booksNotEmpty">
+    <div [hidden]="!booksNotEmpty">
       <h5>Step 4.</h5>
 
-        <div class="d-flex flex-column">
-          <input class="form-control w-100" type="text" [value]="5.50" #postage>
-          <button class="btn btn-warning w-100" (click)="updatePostage(postage.value)">Confirm Postage</button>
-        </div>
-
-</div>
-
-
-
-      <div [hidden]="!isPostageConfirmed">
-        <h5>Step 5.</h5>
-        <div class="d-flex flex-row">
-
-          <button class="btn btn-primary w-100" (click)="saveInvoice()">Save Invoice</button>
-        </div>
+      <div class="d-flex flex-column">
+        <input class="form-control w-100" type="text" [value]="5.50" #postage>
+        <button class="btn btn-secondary w-100" (click)="updatePostage(postage.value)">Confirm Postage</button>
       </div>
+
+    </div>
+
+
+
+    <div [hidden]="!isPostageConfirmed">
+      <h5>Step 5.</h5>
+      <div class="d-flex flex-row">
+
+        <button class="btn btn-primary w-100" (click)="saveInvoice()">Save Invoice</button>
+      </div>
+    </div>
 
 
 
   </div>
 
+ 
 
-  <div class="col-md-8">
-        <div class=" unprintable" [hidden]="!isInvoiceSaved">
-      <h5>Print：</h5>
-      <div class="d-flex flex-row">
-        <button class="btn btn-danger" (click)="print()">Print</button>
-      </div>
+
+  <div  class="col-md-8">
+    <div *ngIf="isInvoiceSaved" class="row d-flex justify-content-center d-print-none" >
+        
+          <button class="btn btn-primary btn-sm " style="margin-left:20px;margin-right:20px;" data-toggle="tooltip" data-placement="top" title="Print" (click)="print()"><i class="material-icons" >print</i></button>
+          <button class="btn btn-primary btn-sm " data-toggle="tooltip" data-placement="top" title="Create new invoice" (click)="create()"><i class="material-icons">add_circle</i></button>
+          <button class="btn btn-danger btn-sm ml-auto " data-toggle="tooltip" data-placement="top" title="Delete" (click)="delete(invoice.$key)"><i class="material-icons">delete</i></button>
     </div>
     <invoice-detail [invoice]="invoice" [isEditable]="!isInvoiceSaved"></invoice-detail>
-    <div>
-    </div>
+  </div>
+</div>

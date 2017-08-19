@@ -37,6 +37,15 @@ export class IssueInvoiceComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.Init();
+  }
+
+  Init(){
+    this.isInvoiceSaved=false;
+    this.booksNotEmpty=false;
+    this.isOrderNumberConfirmed=false;
+    this.isPostageConfirmed=false;
+    this.selectedClient=null;
     this.invoice = new Invoice(this.cookieService);
     this.paymentinfo.subscribe(snapshot => {
       this.invoice.paymentInfo = snapshot;
@@ -82,6 +91,23 @@ export class IssueInvoiceComponent implements OnInit {
     window.print();
   }
 
+  create(){
+    this.Init();
+  }
+
+  delete(key:string){
+    var promise = this.invoices.remove(key);
+    SharedMethods.showFirebaseResult(promise);
+    promise
+      .then(_ => {
+        this.invoice=null;
+        //this.deleteIdFromCookies();
+        this.create();
+        // TODO: CHANGE COOKIE
+      })
+      .catch(err => console.log(err, 'Delete Failed!'));
+  }
+
   saveIdToCookies() {
     let dateToday: string = new DatePipe('en-NZ').transform(new Date(), 'yyMMdd');
     let invoicesToday: string = this.cookieService.get(dateToday);
@@ -95,5 +121,24 @@ export class IssueInvoiceComponent implements OnInit {
         array.push(this.invoice.invoiceNumber);
         this.cookieService.put(dateToday, array.toString());
     }
+}
+
+deleteIdFromCookies(){
+  let dateToday: string = new DatePipe('en-NZ').transform(new Date(), 'yyMMdd');
+  let invoicesToday: string = this.cookieService.get(dateToday);
+
+  if (invoicesToday == null) {
+    return;
+  }
+  else {
+    let array: Array<string> = invoicesToday.split(',');
+    var index = array.indexOf(this.invoice.invoiceNumber);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+    this.cookieService.put(dateToday, array.toString());
+
+
+  }
 }
 }
