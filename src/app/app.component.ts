@@ -8,6 +8,7 @@ import { Book } from '../models/book';
 import { Client } from '../models/client';
 import { Invoice } from '../models/invoice';
 import { PaymentInfo } from '../models/paymentInfo';
+import { Settings } from '../models/settings';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
   clients: FirebaseListObservable<Client[]>;
   invoices: FirebaseListObservable<Invoice[]>;
   paymentinfo: FirebaseObjectObservable<PaymentInfo>;
+  settings: FirebaseObjectObservable<Settings>;
   
   constructor(public afAuth: AngularFireAuth,public afDB: AngularFireDatabase) {
     this.isLoading = true;
@@ -59,6 +61,7 @@ else{
     this.clients = this.afDB.list('/'+uid + '/clients');
     this.invoices = this.afDB.list('/'+uid + '/invoices');
     this.paymentinfo = this.afDB.object('/'+uid + '/paymentInfo');
+    this.settings=this.afDB.object('/'+uid + '/settings');
   }
 
 }

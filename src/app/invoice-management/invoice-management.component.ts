@@ -6,6 +6,7 @@ import { OrderBy } from '../../services/OrderBy';
 import { Invoice } from '../../models/invoice';
 import { Book } from '../../models/book';
 import { Client } from '../../models/client';
+import { Settings } from '../../models/settings';
 import { SharedMethods } from '../../shared/methods';
 
 @Component({
@@ -23,7 +24,9 @@ ascending = false;
 invoice:Invoice;
 
  @Input()
-  invoices: FirebaseListObservable<Invoice[]>;
+  invoices: FirebaseListObservable<Invoice[]>; 
+  @Input()
+  settings: FirebaseObjectObservable<Settings>;
 
   constructor() { }
 
@@ -32,6 +35,11 @@ invoice:Invoice;
 
   invoiceSeleted(invoice){
     this.invoice=invoice;
+    if(this.invoice.currencyCode==null){
+      this.settings.subscribe((o)=>{
+        this.invoice.currencyCode= o.currencycode;
+      })
+    }
   }
 
     print() {

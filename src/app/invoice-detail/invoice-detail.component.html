@@ -50,13 +50,13 @@
     <tbody>
       <tr *ngFor="let book of invoice?.books ">
         <td>{{book.name}}</td>
-        <td class="text-center">{{book.price | currency:'NZD':true:'1.2-2'}}</td>
+        <td class="text-center">{{book.price | currency:invoice.currencyCode:true:'1.2-2'}}</td>
         <td><input type="number" [disabled]="!isEditable" class="form-control text-center" style="    width: 60px !important;"
             #updateBookQuantity [value]="book.quantity" (change)="quantityChanged(book,updateBookQuantity.value)" /></td>
         <td><input type="text" [disabled]="!isEditable" class="form-control text-center" style="    width: 60px !important;"
             #updateBookDiscount [value]="book.discount  |  number : '1.2-2'" (change)="discountChanged(book,updateBookDiscount.value)"
           /></td>
-        <td class="text-center">{{book.total | currency:'NZD':true:'1.2-2'}}</td>
+        <td class="text-center">{{book.total | currency:invoice.currencyCode:true:'1.2-2'}}</td>
 
         <td *ngIf="isEditable">
           <button class="btn btn-danger btn-sm" [disabled]="!isEditable" (click)="deleteBookInInvoice(book)"><i _ngcontent-c1="" class="material-icons">delete</i></button></td>
@@ -74,7 +74,7 @@
         <td></td>
         <td></td>
         <td class="col text-right ">Sub Total: </td>
-        <td>{{invoice?.subTotal | currency:'NZD':true:'1.2-2'}}</td>
+        <td>{{invoice?.subTotal | currency:invoice.currencyCode:true:'1.2-2'}}</td>
         <td *ngIf="isEditable"></td>
       </tr>
       <tr>
@@ -82,7 +82,7 @@
         <td></td>
         <td></td>
         <td class="col text-right ">Postage: </td>
-        <td>{{invoice?.postage | currency:'NZD':true:'1.2-2'}}</td>
+        <td>{{invoice?.postage | currency:invoice.currencyCode:true:'1.2-2'}}</td>
         <td *ngIf="isEditable"></td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@
         <td></td>
         <td></td>
         <td class="col text-right ">GST: </td>
-        <td>{{invoice?.gst | currency:'NZD':true:'1.2-2'}}</td>
+        <td>{{invoice?.gst | currency:invoice.currencyCode:true:'1.2-2'}}</td>
         <td *ngIf="isEditable"></td>
       </tr>
       <tr>
@@ -98,7 +98,7 @@
         <td></td>
         <td></td>
         <td class="col font-weight-bold text-right ">Total: </td>
-        <td class="font-weight-bold">{{invoice?.total | currency:'NZD':true:'1.2-2'}}</td>
+        <td class="font-weight-bold">{{invoice?.total | currency:invoice.currencyCode:true:'1.2-2'}}</td>
         <td *ngIf="isEditable"></td>
       </tr>
     </tbody>
@@ -120,7 +120,7 @@
       <div class="p-4 ml-auto" style="padding-top:1rem!important;padding-bottom: 1rem!important">
         <div>Customer: {{invoice?.client?.name}}</div>
         <div>Invoice No. <strong> {{invoice?.invoiceNumber}}</strong></div>
-        <div>Total:<strong> {{invoice?.total | currency:'NZD':true:'1.2-2'}}</strong></div>
+        <div>Total:<strong> {{invoice?.total | currency:invoice.currencyCode:true:'1.2-2'}}</strong></div>
       </div>
     </div>
 

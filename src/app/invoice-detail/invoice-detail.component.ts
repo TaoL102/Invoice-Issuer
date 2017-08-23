@@ -9,14 +9,15 @@ import { BookInInvoice } from '../../models/bookInInvoice';
 })
 export class InvoiceDetailComponent implements OnInit {
 
+  
   @Input()
   invoice:Invoice;
   @Input()
   isEditable:boolean;
+
   constructor() { }
 
   ngOnInit() {
-   
   }
 
 

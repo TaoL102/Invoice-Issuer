@@ -6,6 +6,7 @@ import { Invoice } from '../../models/invoice';
 import { Book } from '../../models/book';
 import { Client } from '../../models/client';
 import { PaymentInfo } from '../../models/paymentInfo';
+import { Settings } from '../../models/settings';
 import { SharedMethods } from '../../shared/methods';
 import { CookieService } from 'ngx-cookie';
 import { DatePipe } from '@angular/common';
@@ -32,6 +33,8 @@ export class IssueInvoiceComponent implements OnInit {
   books: FirebaseListObservable<Book[]>;
   @Input()
   invoices: FirebaseListObservable<Invoice[]>;
+  @Input()
+  settings: FirebaseObjectObservable<Settings>;
 
   constructor(private cookieService:CookieService) {
   }
@@ -49,7 +52,12 @@ export class IssueInvoiceComponent implements OnInit {
     this.invoice = new Invoice(this.cookieService);
     this.paymentinfo.subscribe(snapshot => {
       this.invoice.paymentInfo = snapshot;
-    })
+    });
+    if(this.invoice.currencyCode ==""){
+      this.settings.subscribe(snapshot=>{
+        this.invoice.currencyCode=snapshot.currencycode;
+      })
+    };
   }
 
   clientSeleted(client: Client) {

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Invoice Issuer",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "description": "This extension manages book stock, customer information and issues invoices for a book store.",
   
     "content_security_policy": "script-src  'self' 'sha256-sNC3NIhL46ozieLtCyo3MlvedgHeAtQ9ei0DgVIQbdA=' 'unsafe-eval' https://*.google.com https://cdn.firebase.com https://*.firebaseio.com; object-src 'self' 'unsafe-inline'" ,
@@ -11,9 +11,9 @@
       },
     "browser_action": {
         "default_icon": {                 
-            "16": "logo.png",         
-            "24":   "logo.png",           
-            "32":   "logo.png"         
+            "16": "icon.png",         
+            "24":   "icon.png",           
+            "32":   "icon.png"         
           },
           "default_title": "Invoice Issuer"     
          

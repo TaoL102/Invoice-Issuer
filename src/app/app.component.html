@@ -27,6 +27,9 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#paymentInfo-management" role="tab">Payment Info</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#setting-management" role="tab">Settings</a>
+      </li>
     </ul>
 
     <!--Login & Logout-->
@@ -54,7 +57,7 @@
 
 
 <!--Alert-->
-<div class="alert fixed-top " role="alert"  style="display:none;top:57px;">
+<div class="alert fixed-top " role="alert" style="display:none;top:57px;">
   <strong>Successful!</strong> Your data has been saved.
 </div>
 
@@ -74,18 +77,23 @@
 
   <!--Invoice Management-->
   <div class="tab-pane fade" id="invoice-management" role="tabpanel">
-    <invoice-management *ngIf="invoices!=null" [invoices]="invoices"></invoice-management>
+    <invoice-management *ngIf="invoices!=null" [invoices]="invoices" [settings]="settings"></invoice-management>
   </div>
 
   <!--Issue Invoice-->
   <div class="tab-pane fade active show" id="issue-invoice" role="tabpanel">
     <issue-invoice *ngIf="clients!=null&&books!=null&&paymentinfo!=null&&invoices!=null" [invoices]="invoices" [clients]="clients"
-      [paymentinfo]="paymentinfo" [books]="books"></issue-invoice>
+      [paymentinfo]="paymentinfo" [books]="books" [settings]="settings"></issue-invoice>
   </div>
 
   <!--Payment Info Management-->
   <div class="tab-pane fade" id="paymentInfo-management" role="tabpanel">
-    <payment-info-management *ngIf="paymentinfo!=null" [paymentinfo]="paymentinfo"></payment-info-management>
+    <payment-info-management [paymentinfo]="paymentinfo"></payment-info-management>
+  </div>
+
+  <!--Settings Management-->
+  <div class="tab-pane fade" id="setting-management" role="tabpanel">
+    <setting-management [settings]="settings"></setting-management>
   </div>
 
 </div>

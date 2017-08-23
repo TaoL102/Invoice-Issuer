@@ -1,0 +1,30 @@
+<label>Currency:</label>
+<div class="row">
+    <div  class="form-group col-md-2">
+        <input type="text" class="form-control" value={{currency}} disabled>
+    </div>
+   <div class="form-group col-md-4"> 
+     <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle  form-control" type="button" id="dropdownInvoicesButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+    Choose Currency:
+  </button>
+        <div class="dropdown-menu scrollable-menu form-control" aria-labelledby="dropdownInvoicesButton">
+          <input type="text" class="form-control" value="" placeholder="Search by currency code or country name" [(ngModel)]="filterCurrencyKeyWord">
+          <a *ngFor="let currencyCode of currencyCodes | currencyFilter:filterCurrencyKeyWord | orderBy:order:ascending" class="dropdown-item" (click)="currencySeleted(currencyCode)">{{currencyCode.code}} - {{currencyCode.countryname}}</a>
+ 
+        </div>
+      </div>
+  </div>
+
+
+</div>
+
+
+<div class="form-group">
+
+
+
+  <button class="btn btn-primary" (click)="updateSettings()">Update</button>
+
+</div>

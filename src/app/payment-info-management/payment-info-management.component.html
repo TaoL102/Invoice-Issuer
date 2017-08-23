@@ -1,25 +1,55 @@
+<div class="row">
+  <div class="form-group col-md-12">
+    <label>Name:</label>
+    <input type="text" class="form-control" #newName [value]="(paymentinfo | async )?.name">
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6">
+    <label>Address:</label>
+    <input type="text" class="form-control" #newAddress [value]="(paymentinfo | async )?.address">
+  </div>
+  <div class="form-group col-md-2">
+    <label>City:</label>
+    <input type="text" class="form-control" #newCity [value]="(paymentinfo | async )?.city">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Post Code:</label>
+    <input type="text" class="form-control" #newPostCode [value]="(paymentinfo | async )?.postcode">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Country:</label>
+    <input type="text" class="form-control" #newCountry [value]="(paymentinfo | async )?.country">
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-6">
+    <label>Contact:</label>
+    <input type="text" class="form-control" #newContact [value]="(paymentinfo | async )?.contact">
+  </div>
+  <div class="form-group col-md-6">
+    <label>Email:</label>
+    <input type="text" class="form-control" #newEmail [value]="(paymentinfo | async )?.email">
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-4">
+    <label>Account Name:</label>
+    <input type="text" class="form-control" #newAccountName [value]="(paymentinfo | async )?.accountName">
+  </div>
+  <div class="form-group col-md-4">
+    <label>GST Number:</label>
+    <input type="text" class="form-control" #newGSTNumber [value]="(paymentinfo | async )?.gstNumber">
+  </div>
+  <div class="form-group col-md-4">
+    <label>Account Number:</label>
+    <input type="text" class="form-control" #newAccountNumber [value]="(paymentinfo | async )?.accountNumber">
+  </div>
+</div>
 
 <div class="form-group">
-  <label>Name:</label>
-  <input type="text" class="form-control" #newName [value]="(paymentinfo | async )?.name">
-  <label>Address:</label>
-  <input type="text" class="form-control" #newAddress [value]="(paymentinfo | async )?.address">
-  <label>City:</label>
-  <input type="text" class="form-control" #newCity  [value]="(paymentinfo | async )?.city">
-  <label>Post Code:</label>
-  <input type="text" class="form-control" #newPostCode  [value]="(paymentinfo | async )?.postcode">
-  <label>Country:</label>
-  <input type="text" class="form-control"  #newCountry [value]="(paymentinfo | async )?.country">
-  <label>Contact:</label>
-  <input type="text" class="form-control" #newContact  [value]="(paymentinfo | async )?.contact">
-  <label>Email:</label>
-  <input type="text" class="form-control"  #newEmail [value]="(paymentinfo | async )?.email">
-  <label>Account Name:</label>
-  <input type="text" class="form-control"  #newAccountName [value]="(paymentinfo | async )?.accountName">
-  <label>GST Number:</label>
-  <input type="text" class="form-control"  #newGSTNumber [value]="(paymentinfo | async )?.gstNumber">
-  <label>Account Number:</label>
-  <input type="text" class="form-control"  #newAccountNumber [value]="(paymentinfo | async )?.accountNumber">
 
 
 

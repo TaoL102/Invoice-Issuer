@@ -6,6 +6,7 @@ import { BookInInvoice } from '../models/bookInInvoice';
 import { CookieService } from 'ngx-cookie';
 
 export class Invoice {
+    currencyCode: string;
     invoiceNumber: string;
     orderNumber: string;
     date: number;
@@ -26,6 +27,7 @@ export class Invoice {
         this.postage = 0;
         this.gst = 0;
         this.total = 0;
+        this.currencyCode='';
     }
 
     getRandomInt(min, max) {
