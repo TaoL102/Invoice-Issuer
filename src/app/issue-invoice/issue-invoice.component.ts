@@ -24,6 +24,7 @@ export class IssueInvoiceComponent implements OnInit {
   isOrderNumberConfirmed:boolean;
   isPostageConfirmed: boolean;
   isInvoiceSaved: boolean;
+  settingsSubscription:any;
 
   @Input()
   clients: FirebaseListObservable<Client[]>;
@@ -51,10 +52,10 @@ export class IssueInvoiceComponent implements OnInit {
     this.selectedClient=null;
     this.invoice = new Invoice(this.cookieService);
     this.paymentinfo.subscribe(snapshot => {
-      this.invoice.paymentInfo = snapshot;
+    this.invoice.paymentInfo = snapshot;
     });
-    if(this.invoice.currencyCode ==""){
-      this.settings.subscribe(snapshot=>{
+    if(this.invoice.currencyCode ==undefined){
+      this.settingsSubscription=this.settings.subscribe(snapshot=>{
         this.invoice.currencyCode=snapshot.currencycode;
       })
     };
@@ -88,9 +89,10 @@ export class IssueInvoiceComponent implements OnInit {
     var promise = this.invoices.push(this.invoice);
     SharedMethods.showFirebaseResult(promise);
     promise
-      .then(_ => {
+      .then(snapshot => {
         this.isInvoiceSaved = true;
         this.saveIdToCookies();
+        this.settingsSubscription.unsubscribe();
       })
       .catch(err => console.log(err, 'Save Failed!'));
   }

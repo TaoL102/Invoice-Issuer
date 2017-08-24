@@ -27,7 +27,6 @@ export class Invoice {
         this.postage = 0;
         this.gst = 0;
         this.total = 0;
-        this.currencyCode='';
     }
 
     getRandomInt(min, max) {
