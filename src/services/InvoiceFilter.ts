@@ -13,14 +13,15 @@ transform(value, args?): any {
       return value;
     }
    return value.filter((invoice) => {
-       if(args!=null){   
+       if(args!=null){ 
          let strInvNo:string= invoice.invoiceNumber;
          let client:Client= invoice.client;
          let strCliName=client.name;
+         let isPaid:Boolean = invoice.isPaid ==true;
 
          console.log(args);
          console.log(strCliName);
-            return strInvNo.indexOf(args.toLowerCase()) > -1 || strCliName.toLowerCase().indexOf(args.toLowerCase()) > -1;   
+            return  (isPaid)&&( strInvNo.indexOf(args.toLowerCase()) > -1 || strCliName.toLowerCase().indexOf(args.toLowerCase()) > -1);   
        }
         });  
   }

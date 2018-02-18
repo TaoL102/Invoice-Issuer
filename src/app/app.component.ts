@@ -9,6 +9,7 @@ import { Client } from '../models/client';
 import { Invoice } from '../models/invoice';
 import { PaymentInfo } from '../models/paymentInfo';
 import { Settings } from '../models/settings';
+import { InvoiceFilter } from '../services/InvoiceFilter';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
   books: FirebaseListObservable<Book[]>;
   clients: FirebaseListObservable<Client[]>;
   invoices: FirebaseListObservable<Invoice[]>;
+  paidInvoices: FirebaseListObservable<Invoice[]>;
   paymentinfo: FirebaseObjectObservable<PaymentInfo>;
   settings: FirebaseObjectObservable<Settings>;
   
@@ -60,6 +62,7 @@ else{
     this.books = this.afDB.list('/'+uid + '/books');
     this.clients = this.afDB.list('/'+uid + '/clients');
     this.invoices = this.afDB.list('/'+uid + '/invoices');
+    this.paidInvoices = this.afDB.list('/'+uid + '/invoices/paid');
     this.paymentinfo = this.afDB.object('/'+uid + '/paymentInfo');
     this.settings=this.afDB.object('/'+uid + '/settings');
   }

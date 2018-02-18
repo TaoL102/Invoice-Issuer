@@ -19,6 +19,7 @@ export class InvoiceManagementComponent implements OnInit {
 filterInvoiceKeyWord:string;
 order = "invoiceNumber";
 ascending = false;
+filteredInvoices : Invoice[] = new Array();
 
 @Input()
 invoice:Invoice;
@@ -27,10 +28,18 @@ invoice:Invoice;
   invoices: FirebaseListObservable<Invoice[]>; 
   @Input()
   settings: FirebaseObjectObservable<Settings>;
+  @Input()
+  isPaid:boolean;
+
 
   constructor() { }
 
   ngOnInit() {
+    this.invoices.subscribe(o=>
+      {
+        this.filteredInvoices= o.filter(j=>j.isPaid==this.isPaid);
+      }
+      );
   }
 
   invoiceSeleted(invoice){
@@ -48,6 +57,18 @@ invoice:Invoice;
 
   delete(key:string){
     var promise = this.invoices.remove(key);
+    SharedMethods.showFirebaseResult(promise);
+    promise
+      .then(_ => {
+        this.invoice=null;
+        // TODO: CHANGE COOKIE
+      })
+      .catch(err => console.log(err, 'Delete Failed!'));
+  }
+
+  pay(key:string){
+    this.invoice.isPaid=true;
+    var promise = this.invoices.update(key,this.invoice);
     SharedMethods.showFirebaseResult(promise);
     promise
       .then(_ => {

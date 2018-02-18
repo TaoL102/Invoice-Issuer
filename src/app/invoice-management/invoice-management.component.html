@@ -1,6 +1,7 @@
-<div *ngIf="invoice!=null" class="row d-flex justify-content-center ">
+<div *ngIf="invoice!=null" class="row d-flex justify-content-end ">
 
-  <button class="btn btn-danger btn-sm ml-auto unprintable" (click)="delete(invoice.$key)"><i class="material-icons">delete</i></button>
+  <button *ngIf="!invoice.isPaid" class="btn btn-primary m-2 unprintable" (click)="pay(invoice.$key)">Confirm Payment</button>
+  <button class="btn btn-danger m-2 unprintable" (click)="delete(invoice.$key)"><i class="material-icons">delete</i></button>
 
 </div>
 <div class="row d-flex justify-content-center">
@@ -14,10 +15,12 @@
           aria-haspopup="true" aria-expanded="false">
     Choose Invoice:
   </button>
-        <div class="dropdown-menu scrollable-menu form-control" aria-labelledby="dropdownInvoicesButton">
-          <input type="text" class="form-control" value="" placeholder="Search by invoice# or client name" [(ngModel)]="filterInvoiceKeyWord">
-          <a *ngFor="let invoice of invoices | async | invoiceFilter:filterInvoiceKeyWord | orderBy:order:ascending" class="dropdown-item" (click)="invoiceSeleted(invoice)">{{invoice.invoiceNumber}} - {{invoice.client.name}}</a>
-        </div>
+
+  <div class="dropdown-menu scrollable-menu form-control" aria-labelledby="dropdownInvoicesButton">
+    <input type="text" class="form-control" value="" placeholder="Search by invoice# or client name" [(ngModel)]="filterInvoiceKeyWord">
+  <a  *ngFor="let invoice of filteredInvoices | invoiceFilter:filterInvoiceKeyWord | orderBy:order:ascending" class="dropdown-item" (click)="invoiceSeleted(invoice)">{{invoice.invoiceNumber}} - {{invoice.client.name}}</a>
+  </div>
+
       </div>
     </div>
 

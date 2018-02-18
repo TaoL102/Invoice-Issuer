@@ -17,6 +17,7 @@ export class Invoice {
     gst: number;
     total: number;
     paymentInfo: PaymentInfo;
+    isPaid:boolean;
 
     constructor(cookieService:CookieService) {
 
@@ -27,6 +28,7 @@ export class Invoice {
         this.postage = 0;
         this.gst = 0;
         this.total = 0;
+        this.isPaid=false;
     }
 
     getRandomInt(min, max) {

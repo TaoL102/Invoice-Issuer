@@ -15,7 +15,9 @@
    </a>
         <div class="dropdown-menu">
           <a class="dropdown-item" id="issue-invoice-tab" href="#issue-invoice" role="tab" data-toggle="tab">Issue Invoice</a>
-          <a class="dropdown-item" id="invoice-management-tab" href="#invoice-management" role="tab" data-toggle="tab" aria-expanded="true">Invoices</a>
+          <a class="dropdown-item" id="invoice-unpaid-management-tab" href="#invoice-unpaid-management" role="tab" data-toggle="tab" aria-expanded="true">Unpaid Invoices</a>
+          <a class="dropdown-item" id="invoice-paid-management-tab" href="#invoice-paid-management" role="tab" data-toggle="tab" aria-expanded="true">Paid Invoices</a>
+  
         </div>
       </li>
       <li class="nav-item">
@@ -57,8 +59,8 @@
 
 
 <!--Alert-->
-<div class="alert fixed-top " role="alert" style="display:none;top:57px;">
-  <strong>Successful!</strong> Your data has been saved.
+<div class="alert fixed-top " role="alert" style="display:none;top:57px;z-index:1029;">
+  <strong>Successful!</strong> Saved Successfully!
 </div>
 
 <!-- Tab panes -->
@@ -75,10 +77,15 @@
     <client-management *ngIf="clients!=null" [clients]="clients"></client-management>
   </div>
 
-  <!--Invoice Management-->
-  <div class="tab-pane fade" id="invoice-management" role="tabpanel">
-    <invoice-management *ngIf="invoices!=null" [invoices]="invoices" [settings]="settings"></invoice-management>
+  <!--Unpaid - Invoice Management-->
+  <div class="tab-pane fade" id="invoice-unpaid-management" role="tabpanel">
+    <invoice-management *ngIf="invoices!=null"  [isPaid]=false  [invoices]="invoices" [settings]="settings"></invoice-management>
   </div>
+
+    <!--Paid - Invoice Management-->
+    <div class="tab-pane fade" id="invoice-paid-management" role="tabpanel">
+      <invoice-management *ngIf="invoices!=null" [isPaid]=true [invoices]="invoices" [settings]="settings"></invoice-management>
+    </div>
 
   <!--Issue Invoice-->
   <div class="tab-pane fade active show" id="issue-invoice" role="tabpanel">
