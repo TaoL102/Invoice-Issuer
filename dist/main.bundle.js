@@ -538,7 +538,9 @@ var InvoiceManagementComponent = (function () {
     InvoiceManagementComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.invoices.subscribe(function (o) {
-            _this.filteredInvoices = o.filter(function (j) { return j.isPaid == _this.isPaid; });
+            _this.filteredInvoices = o.filter(function (j) {
+                return _this.isPaid ? j.isPaid == _this.isPaid : (!j.isPaid || j.isPaid == _this.isPaid);
+            });
         });
     };
     InvoiceManagementComponent.prototype.invoiceSeleted = function (invoice) {

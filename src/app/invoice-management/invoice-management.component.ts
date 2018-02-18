@@ -37,7 +37,9 @@ invoice:Invoice;
   ngOnInit() {
     this.invoices.subscribe(o=>
       {
-        this.filteredInvoices= o.filter(j=>j.isPaid==this.isPaid);
+        this.filteredInvoices= o.filter(j=> 
+         this.isPaid? j.isPaid==this.isPaid :( !j.isPaid || j.isPaid==this.isPaid )
+        );
       }
       );
   }
